@@ -1,130 +1,171 @@
-// Slider functionality
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-let currentSlide = 0;
-let slideInterval;
+document.addEventListener('DOMContentLoaded', function() {
+    // Hamburger Menü İşlevselliği
+    initMobileMenu();
 
-// Initialize slider
-function initSlider() {
-    // Set first slide and dot as active
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
-    
-    // Start automatic sliding
-    startSlideTimer();
-}
+    // Slider İşlevselliği (Sadece ana sayfada varsa)
+    if (document.querySelector('.slider')) {
+        initSlider();
+    }
 
-// Next slide function
-function nextSlide() {
-    goToSlide((currentSlide + 1) % slides.length);
-}
-
-// Previous slide function
-function prevSlide() {
-    goToSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1);
-}
-
-// Go to specific slide
-function goToSlide(n) {
-    // Remove active class from current slide and dot
-    slides[currentSlide].classList.remove('active');
-    dots[currentSlide].classList.remove('active');
-    
-    // Update current slide
-    currentSlide = n;
-    
-    // Add active class to new slide and dot
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
-}
-
-// Start automatic sliding
-function startSlideTimer() {
-    slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-}
-
-// Stop automatic sliding
-function stopSlideTimer() {
-    clearInterval(slideInterval);
-}
-
-// Event Listeners
-prevBtn.addEventListener('click', () => {
-    prevSlide();
-    stopSlideTimer();
-    startSlideTimer();
-});
-
-nextBtn.addEventListener('click', () => {
-    nextSlide();
-    stopSlideTimer();
-    startSlideTimer();
-});
-
-// Add click events to dots
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        goToSlide(index);
-        stopSlideTimer();
-        startSlideTimer();
-    });
-});
-
-// Pause slider on hover
-const slider = document.querySelector('.slider');
-slider.addEventListener('mouseenter', stopSlideTimer);
-slider.addEventListener('mouseleave', startSlideTimer);
-
-// Initialize slider when page loads
-document.addEventListener('DOMContentLoaded', initSlider);
-
-// Mobile menu functionality
-const burger = document.querySelector('.burger');
-const nav = document.querySelector('.nav-links');
-const navLinks = document.querySelectorAll('.nav-links li');
-
-burger.addEventListener('click', () => {
-    // Toggle navigation
-    nav.classList.toggle('active');
-    
-    // Animate links
-    navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-            link.style.animation = '';
-        } else {
-            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-        }
-    });
-
-    // Burger animation
-    burger.classList.toggle('toggle');
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !burger.contains(e.target) && nav.classList.contains('active')) {
-        nav.classList.remove('active');
-        burger.classList.remove('toggle');
-        navLinks.forEach(link => {
-            link.style.animation = '';
-        });
+    // Video İşlevselliği (Video olan sayfalarda)
+    if (document.querySelector('.video-container')) {
+        initVideos();
     }
 });
 
-// Close mobile menu when clicking a link
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
+// Hamburger Menü Fonksiyonları
+function initMobileMenu() {
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    const navLinks = document.querySelectorAll('.nav-links li');
+
+    if (!burger || !nav || !navLinks) return;
+
+    burger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    document.addEventListener('click', function(e) {
         if (nav.classList.contains('active')) {
-            nav.classList.remove('active');
-            burger.classList.remove('toggle');
-            navLinks.forEach(link => {
-                link.style.animation = '';
-            });
+            if (!nav.contains(e.target) && !burger.contains(e.target)) {
+                toggleMenu();
+            }
         }
     });
-});
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (nav.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    function toggleMenu() {
+        nav.classList.toggle('active');
+        burger.classList.toggle('toggle');
+
+        navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+                link.style.animation = '';
+            } else {
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+            }
+        });
+    }
+}
+
+// Slider Fonksiyonları
+function initSlider() {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentSlide = 0;
+    let slideInterval;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function startSlideTimer() {
+        slideInterval = setInterval(() => showSlide(currentSlide + 1), 5000);
+    }
+
+    function stopSlideTimer() {
+        clearInterval(slideInterval);
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            stopSlideTimer();
+            startSlideTimer();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            stopSlideTimer();
+            startSlideTimer();
+        });
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            stopSlideTimer();
+            startSlideTimer();
+        });
+    });
+
+    // İlk slideı göster ve otomatik geçişi başlat
+    showSlide(0);
+    startSlideTimer();
+}
+
+// Video Fonksiyonları
+function initVideos() {
+    const videos = document.querySelectorAll('.lazy-video');
+    const muteBtns = document.querySelectorAll('.mute-btn');
+
+    // Lazy loading için IntersectionObserver
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    const source = video.querySelector('source');
+                    if (source && source.dataset.src) {
+                        source.src = source.dataset.src;
+                        video.load();
+                        video.play().catch(() => console.log("Video otomatik oynatılamadı"));
+                        observer.unobserve(video);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        videos.forEach(video => videoObserver.observe(video));
+    }
+
+    // Video kontrolleri
+    document.querySelectorAll('.video-container').forEach((container, index) => {
+        const video = container.querySelector('video');
+        const muteBtn = container.querySelector('.mute-btn');
+
+        if (video) {
+            // Video tıklama kontrolü
+            container.addEventListener('click', (e) => {
+                if (!e.target.closest('.mute-btn')) {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                }
+            });
+
+            // Ses kontrolü
+            if (muteBtn) {
+                muteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    video.muted = !video.muted;
+                    muteBtn.innerHTML = video.muted ? 
+                        '<i class="fas fa-volume-mute"></i>' : 
+                        '<i class="fas fa-volume-up"></i>';
+                });
+            }
+        }
+    });
+}
 
 // Scroll to top functionality
 window.addEventListener('scroll', () => {
@@ -141,59 +182,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
-        });
-    });
-});
-
-// Video lazy loading ve kontrol
-document.addEventListener('DOMContentLoaded', function() {
-    const lazyVideos = document.querySelectorAll('.lazy-video');
-    const videoObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const video = entry.target;
-                const source = video.querySelector('source');
-                if (source.dataset.src) {
-                    source.src = source.dataset.src;
-                    video.load();
-                    video.play();
-                    observer.unobserve(video);
-                }
-            }
-        });
-    }, { threshold: 0.5 });
-
-    lazyVideos.forEach(video => {
-        videoObserver.observe(video);
-    });
-
-    // Video tıklama kontrolü
-    document.querySelectorAll('.video-container').forEach(container => {
-        const video = container.querySelector('video');
-        
-        container.addEventListener('click', (e) => {
-            if (!e.target.closest('.mute-btn')) {
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            }
-        });
-    });
-
-    // Ses kontrolü
-    document.querySelectorAll('.mute-btn').forEach(btn => {
-        const video = btn.parentElement.querySelector('video');
-        const icon = btn.querySelector('i');
-
-        btn.addEventListener('click', () => {
-            video.muted = !video.muted;
-            if (video.muted) {
-                icon.className = 'fas fa-volume-mute';
-            } else {
-                icon.className = 'fas fa-volume-up';
-            }
         });
     });
 }); 
