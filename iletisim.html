@@ -41,65 +41,72 @@
             <div class="contact-grid">
                 <div class="contact-card">
                     <i class="fas fa-map-marker-alt"></i>
-                    <h3>Ankara Cd. No:82,Abdulhalik Renda, 18200 Çankırı Merkez/Çankırı</h3>
-                    <p>Çankırı/Merkez</p>
+                    <h3>Adres</h3>
+                    <a href="https://maps.google.com/?q=Ankara Cd. No:82,Abdulhalik Renda, 18200 Çankırı Merkez/Çankırı" target="_blank">
+                        <p>Ankara Cd. No:82,Abdulhalik Renda, 18200 Çankırı Merkez/Çankırı</p>
+                        <p>Çankırı/Merkez</p>
+                    </a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-phone"></i>
                     <h3>Telefon</h3>
-                    <p>+90 533 955 33 51</p>
-                    <p>+90 531 372 71 71 </p>
+                    <a href="tel:+905339553351"><p>+90 533 955 33 51</p></a>
+                    <a href="tel:+905313727171"><p>+90 531 372 71 71</p></a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <h3>E-posta</h3>
-                    <p>iimfkastamonu@hotmail.com</p>
-                    
+                    <a href="mailto:iimfkastamonu@hotmail.com"><p>iimfkastamonu@hotmail.com</p></a>
                 </div>
             </div>
         </section>
 
-        <section class="contact-form">
-            <h2>Bize Ulaşın</h2>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="name">Adınız Soyadınız</label>
-                    <input type="text" id="name" name="name" required>
+        <div class="contact-form-map-container">
+            <section class="map-section">
+                <h2>Konum</h2>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1921.710570110994!2d33.61540819650396!3d40.57129112874581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c94b29bcde57af%3A0x5c69bb3a55d92c0f!2zQ2Fua2lyYSwgVHVya2l5ZSwgVHVya2VraGluLCBUdXJraXllcg!5e0!3m2!1str!2str!4v1612373907767!5m2!1str!2str" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
                 </div>
-                <div class="form-group">
-                    <label for="email">E-posta Adresiniz</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Telefon Numaranız</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Konu</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Mesajınız</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Gönder</button>
-            </form>
-        </section>
+            </section>
 
-        <section class="map-section">
-            <h2>Konum</h2>
-            <div class="map-container">
-                <!-- Google Maps iframe kodu buraya eklenecek -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1921.710570110994!2d33.61540819650396!3d40.57129112874581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c94b29bcde57af%3A0x5c69bb3a55d92c0f!2zQ2Fua2lyYSwgVHVya2l5ZSwgVHVya2VraGluLCBUdXJraXllcg!5e0!3m2!1str!2str!4v1612373907767!5m2!1str!2str" 
-                    width="100%" 
-                    height="450" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
-            </div>
-        </section>
+            <section class="contact-form">
+                <h2>Bize Ulaşın</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Adınız Soyadınız</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon Numaranız</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Konu</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mesajınız</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Gönder</button>
+                </form>
+            </section>
+        </div>
     </main>
+
+    <a href="https://wa.me/905313727171" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <footer>
         <div class="footer-content">
