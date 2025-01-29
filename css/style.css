@@ -36,6 +36,13 @@ body {
     gap: 10px;
     flex-wrap: wrap;
     padding: 0.2rem 0;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+    opacity: 0.9;
 }
 
 .logo-icon {
