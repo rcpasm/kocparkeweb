@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hamburger Menü İşlevselliği
     initMobileMenu();
 
+    // Header Scroll İşlevselliği
+    initHeaderScroll();
+
     // Slider İşlevselliği (Sadece ana sayfada varsa)
     if (document.querySelector('.slider')) {
         initSlider();
@@ -184,4 +187,26 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             behavior: 'smooth'
         });
     });
-}); 
+});
+
+// Header Scroll Fonksiyonu
+function initHeaderScroll() {
+    let lastScroll = 0;
+    const navbar = document.querySelector('.navbar');
+    const scrollThreshold = 50; // Kaç piksel scroll sonra header gizlensin
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        // Sayfa en üstteyse veya yukarı scroll yapılıyorsa header'ı göster
+        if (currentScroll <= scrollThreshold || currentScroll < lastScroll) {
+            navbar.classList.remove('hide');
+        } 
+        // Aşağı scroll yapılıyorsa ve eşik değerini geçtiyse header'ı gizle
+        else if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+            navbar.classList.add('hide');
+        }
+
+        lastScroll = currentScroll;
+    });
+} 

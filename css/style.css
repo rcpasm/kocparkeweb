@@ -23,6 +23,11 @@ body {
     top: 0;
     z-index: 1000;
     flex-wrap: wrap;
+    transition: transform 0.4s ease-in-out;
+}
+
+.navbar.hide {
+    transform: translateY(-100%);
 }
 
 .logo {
@@ -1157,18 +1162,34 @@ footer {
 .contact-hero {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/contact-bg.jpg');
     background-size: cover;
-    background-position: center;
+    background-position:center;
+    background-repeat: no-repeat;
     height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
+    font-size: 1.1rem;
 }
+
+.contact-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
 
 .contact-info {
     padding: 4rem 5%;
+
 }
+
 
 .contact-grid {
     display: grid;
@@ -1786,5 +1807,72 @@ footer {
     .video-description,
     .video-row:nth-child(2) .video-description {
         text-align: left;
+    }
+}
+
+.phone-button {
+    position: fixed;
+    bottom: 5%;
+    left: 0;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.phone-button i {
+    font-size: 1.5rem;
+    transform: rotate(180deg);
+}
+
+.phone-button span {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+.phone-button:hover {
+    transform: rotate(180deg) translateX(-8px);
+    background-color: #0056b3;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .phone-button {
+        padding: 12px 16px;
+    }
+    
+    .phone-button i {
+        font-size: 1.3rem;
+    }
+    
+    .phone-button span {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .phone-button {
+        padding: 10px 14px;
+    }
+    
+    .phone-button i {
+        font-size: 1.2rem;
+    }
+    
+    .phone-button span {
+        font-size: 0.75rem;
     }
 } 
