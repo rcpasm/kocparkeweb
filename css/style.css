@@ -17,7 +17,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
     top: 0;
@@ -219,7 +219,7 @@ body {
     padding: 2rem;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -299,7 +299,7 @@ footer {
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Responsive Burger Menu */
@@ -318,6 +318,7 @@ footer {
 
 /* Mobil Uyumluluk */
 @media screen and (max-width: 768px) {
+
     /* Header ve Navigasyon */
     .navbar {
         padding: 0.2rem 3%;
@@ -356,7 +357,7 @@ footer {
         width: 100%;
         transform: translateX(100%);
         transition: transform 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding-top: 165px;
         z-index: 999;
     }
@@ -903,6 +904,7 @@ footer {
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -919,7 +921,7 @@ footer {
 }
 
 .about-hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/about-bg.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/about-bg.jpg');
     background-size: cover;
     background-position: center;
     height: 40vh;
@@ -993,7 +995,7 @@ footer {
     padding: 2rem;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     margin: 0 auto;
     width: 100%;
@@ -1082,7 +1084,7 @@ footer {
 }
 
 .products-hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/products-bg.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/products-bg.jpg');
     background-size: cover;
     background-position: center;
     height: 40vh;
@@ -1117,7 +1119,7 @@ footer {
     background: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -1128,7 +1130,11 @@ footer {
 .product-card img {
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #fff;
+    /* Fotoğrafın etrafında boşluk kalırsa arka plan beyaz olsun */
+    padding: 10px;
+    /* Kenarlardan biraz boşluk bırakmak fotoğrafın daha şık durmasını sağlar */
 }
 
 .product-card h3 {
@@ -1167,9 +1173,9 @@ footer {
 }
 
 .contact-hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/contact-bg.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/contact-bg.jpg');
     background-size: cover;
-    background-position:center;
+    background-position: center;
     background-repeat: no-repeat;
     height: 40vh;
     display: flex;
@@ -1209,7 +1215,7 @@ footer {
     padding: 2rem;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .contact-card i {
@@ -1399,7 +1405,7 @@ footer {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     aspect-ratio: 9/16;
 }
 
@@ -1530,7 +1536,7 @@ footer {
     background: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -1557,11 +1563,12 @@ footer {
 
 /* Responsive Design for Videos and Services */
 @media screen and (max-width: 768px) {
+
     .video-grid,
     .services-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .video-card,
     .service-card {
         margin-bottom: 1rem;
@@ -1629,7 +1636,7 @@ footer {
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
     z-index: 1000;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -1831,7 +1838,7 @@ footer {
     gap: 12px;
     font-size: 1rem;
 
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
     z-index: 1000;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -1860,11 +1867,11 @@ footer {
     .phone-button {
         padding: 12px 16px;
     }
-    
+
     .phone-button i {
         font-size: 1.3rem;
     }
-    
+
     .phone-button span {
         font-size: 0.8rem;
     }
@@ -1874,12 +1881,12 @@ footer {
     .phone-button {
         padding: 10px 14px;
     }
-    
+
     .phone-button i {
         font-size: 1.2rem;
     }
-    
+
     .phone-button span {
         font-size: 0.75rem;
     }
-} 
+}
