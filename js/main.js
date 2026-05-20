@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Hamburger Menü İşlevselliği
     initMobileMenu();
 
@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('product-lightbox')) {
         initProductLightbox();
     }
+
+    // Promo Modal (Sadece ana sayfada varsa)
+    if (document.getElementById('promoModalOverlay')) {
+        initPromoModal();
+    }
 });
 
 // Hamburger Menü Fonksiyonları
@@ -32,12 +37,12 @@ function initMobileMenu() {
 
     if (!burger || !nav || !navLinks) return;
 
-    burger.addEventListener('click', function(e) {
+    burger.addEventListener('click', function (e) {
         e.stopPropagation();
         toggleMenu();
     });
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (nav.classList.contains('active')) {
             if (!nav.contains(e.target) && !burger.contains(e.target)) {
                 toggleMenu();
@@ -79,7 +84,7 @@ function initSlider() {
     function showSlide(n) {
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
-        
+
         currentSlide = (n + slides.length) % slides.length;
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
@@ -169,8 +174,8 @@ function initVideos() {
                 muteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     video.muted = !video.muted;
-                    muteBtn.innerHTML = video.muted ? 
-                        '<i class="fas fa-volume-mute"></i>' : 
+                    muteBtn.innerHTML = video.muted ?
+                        '<i class="fas fa-volume-mute"></i>' :
                         '<i class="fas fa-volume-up"></i>';
                 });
             }
@@ -209,7 +214,7 @@ function initHeaderScroll() {
         // Sayfa en üstteyse veya yukarı scroll yapılıyorsa header'ı göster
         if (currentScroll <= scrollThreshold || currentScroll < lastScroll) {
             navbar.classList.remove('hide');
-        } 
+        }
         // Aşağı scroll yapılıyorsa ve eşik değerini geçtiyse header'ı gizle
         else if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
             navbar.classList.add('hide');
@@ -241,11 +246,11 @@ function initProductLightbox() {
     const cards = document.querySelectorAll('.product-card');
     if (!cards.length) return;
 
-    const overlay  = document.getElementById('product-lightbox');
+    const overlay = document.getElementById('product-lightbox');
     const closeBtn = document.getElementById('lightbox-close');
-    const imgEl    = document.getElementById('lightbox-img');
-    const titleEl  = document.getElementById('lightbox-title');
-    const descEl   = document.getElementById('lightbox-desc');
+    const imgEl = document.getElementById('lightbox-img');
+    const titleEl = document.getElementById('lightbox-title');
+    const descEl = document.getElementById('lightbox-desc');
 
     if (!overlay) return;
 
@@ -253,15 +258,15 @@ function initProductLightbox() {
     cards.forEach(card => {
         card.style.cursor = 'pointer';
         card.addEventListener('click', function () {
-            const img   = card.querySelector('img');
+            const img = card.querySelector('img');
             const title = card.querySelector('h3');
             const detailedDesc = card.getAttribute('data-description');
-            const shortDesc  = card.querySelector('p');
+            const shortDesc = card.querySelector('p');
 
-            imgEl.src        = img  ? img.src  : '';
-            imgEl.alt        = img  ? img.alt  : '';
+            imgEl.src = img ? img.src : '';
+            imgEl.alt = img ? img.alt : '';
             titleEl.textContent = title ? title.textContent : '';
-            descEl.textContent  = detailedDesc ? detailedDesc.trim() : (shortDesc ? shortDesc.textContent.trim() : '');
+            descEl.textContent = detailedDesc ? detailedDesc.trim() : (shortDesc ? shortDesc.textContent.trim() : '');
 
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -288,4 +293,55 @@ function initProductLightbox() {
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
     });
+}
+
+// Promo Modal Fonksiyonu
+function initPromoModal() {
+    const overlay = document.getElementById('promoModalOverlay');
+    const card = document.getElementById('promoModalCard');
+    if (!overlay || !card) return;
+
+    let dismissed = false;
+    let autoTimer = null;
+
+    // Countdown bar oluştur ve karta ekle
+    const timerBar = document.createElement('div');
+    timerBar.className = 'promo-modal-timer';
+    card.appendChild(timerBar);
+
+    // Modal'ı aç
+    function openModal() {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // 4 saniye sonra otomatik kapat
+        autoTimer = setTimeout(closeModal, 4000);
+
+        // Scroll ile kapat
+        window.addEventListener('scroll', onScroll, { once: true });
+    }
+
+    // Modal'ı kapat
+    function closeModal() {
+        if (dismissed) return;
+        dismissed = true;
+        clearTimeout(autoTimer);
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        window.removeEventListener('scroll', onScroll);
+    }
+
+    function onScroll() {
+        closeModal();
+    }
+
+    // Overlay'a tıklayınca kapat (karta tıklama hariç)
+    overlay.addEventListener('click', function (e) {
+        if (!card.contains(e.target)) {
+            closeModal();
+        }
+    });
+
+    // Sayfa yüklenince kısa gecikme ile aç (animasyon için)
+    setTimeout(openModal, 400);
 }
