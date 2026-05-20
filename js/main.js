@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector('.video-container')) {
         initVideos();
     }
+
+    // URL Hash'e göre yumuşak kaydırma
+    initHashScrolling();
+
+    // Ürün Lightbox (Sadece ürünler sayfasında varsa)
+    if (document.getElementById('product-lightbox')) {
+        initProductLightbox();
+    }
 });
 
 // Hamburger Menü Fonksiyonları
@@ -209,4 +217,75 @@ function initHeaderScroll() {
 
         lastScroll = currentScroll;
     });
-} 
+}
+
+// URL Hash'e göre yumuşak kaydırma işlevselliği
+function initHashScrolling() {
+    // Eğer sayfaya hash ile gelinmişse (örn: urunler.html#lego-beton-bloklar)
+    if (window.location.hash) {
+        const hashTarget = document.querySelector(window.location.hash);
+        if (hashTarget) {
+            // Tarayıcının varsayılan anında atlama zıplamasını engellemek için hafif gecikmeyle yumuşak kaydır
+            setTimeout(() => {
+                hashTarget.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300); // Resim ve stillerin yüklenmesi için 300ms idealdir
+        }
+    }
+}
+
+// Ürün Lightbox İşlevselliği
+function initProductLightbox() {
+    const cards = document.querySelectorAll('.product-card');
+    if (!cards.length) return;
+
+    const overlay  = document.getElementById('product-lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
+    const imgEl    = document.getElementById('lightbox-img');
+    const titleEl  = document.getElementById('lightbox-title');
+    const descEl   = document.getElementById('lightbox-desc');
+
+    if (!overlay) return;
+
+    // Her karta tıklama olayı ekle
+    cards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function () {
+            const img   = card.querySelector('img');
+            const title = card.querySelector('h3');
+            const detailedDesc = card.getAttribute('data-description');
+            const shortDesc  = card.querySelector('p');
+
+            imgEl.src        = img  ? img.src  : '';
+            imgEl.alt        = img  ? img.alt  : '';
+            titleEl.textContent = title ? title.textContent : '';
+            descEl.textContent  = detailedDesc ? detailedDesc.trim() : (shortDesc ? shortDesc.textContent.trim() : '');
+
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Kapatma fonksiyonu
+    function closeLightbox() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        // Görseli küçük gecikmeyle temizle (kapanma animasyonu tamamlansın)
+        setTimeout(() => { imgEl.src = ''; }, 400);
+    }
+
+    // X butonu
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+    // Arka plan karartmasına tıklama
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeLightbox();
+    });
+
+    // ESC tuşu
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
+    });
+}
