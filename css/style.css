@@ -100,9 +100,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: pulse 2s infinite;
+    animation: none;
     border: none;
-    pointer-events: none;
     white-space: nowrap;
 }
 
@@ -113,6 +112,22 @@ body {
     letter-spacing: 2px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
     line-height: 1.2;
+}
+
+.badge-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #f10202;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.3rem;
+    transition: opacity 0.3s ease;
+}
+
+.badge-phone:hover {
+    opacity: 0.75;
 }
 
 @keyframes pulse {
@@ -547,7 +562,23 @@ footer {
     }
 
     .manufacturer-badge {
-        display: none;
+        position: static;
+        transform: none;
+        animation: none;
+        padding: 0.3rem 0.5rem;
+        white-space: normal;
+        text-align: center;
+        order: 3;
+        width: 100%;
+        pointer-events: auto;
+    }
+
+    .manufacturer-badge strong {
+        font-size: 1rem;
+    }
+
+    .badge-phone {
+        font-size: 0.9rem;
     }
 
     /* Features Section */
@@ -775,12 +806,12 @@ footer {
         padding: 0.3rem;
     }
 
-    .manufacturer-badge {
-        display: none;
+    .manufacturer-badge strong {
+        font-size: 0.85rem;
     }
 
-    .manufacturer-badge strong {
-        font-size: 0.7rem;
+    .badge-phone {
+        font-size: 0.8rem;
     }
 
     /* Features Section */
